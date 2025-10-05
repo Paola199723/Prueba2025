@@ -1,5 +1,4 @@
-
-
+```bash
 # Limpiar y reconstruir
 dotnet clean
 dotnet build
@@ -8,6 +7,7 @@ dotnet build
 dotnet restore
 
 # Migraciones (EF Core)
+
 dotnet tool install --global dotnet-ef
 dotnet ef migrations add InitialCreate
 dotnet ef database update
