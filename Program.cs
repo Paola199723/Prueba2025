@@ -83,7 +83,6 @@ static void Ejercicio3()
 }    
 static void ejercicio2()
     {
-        // Ejemplo de lista y destino
 
         // pedir la lista de numeros y el destino
         Console.WriteLine("\n=== Ejercicio 2 ===");
@@ -117,9 +116,7 @@ static void ejercicio2()
         Console.ReadKey();
 
     }
-    // === FUNCIONES EXISTENTES ===
-    // AgregarUsuario, EditarUsuario, VerUsuarios...
-// === FUNCIONES EXISTENTES ===
+
 static void ejercicio1Menu()
 {
     using var context = new BlogContext();
@@ -152,7 +149,7 @@ static void ejercicio1Menu()
                 case "8": AgregarEtiqueta(context); break;
                 case "9": VerEtiquetas(context); break;
                 case "0": return;
-                default: Console.WriteLine("❌ Opción inválida."); break;
+                default: Console.WriteLine("Opción inválida."); break;
             }
 
             Console.WriteLine("\nPresiona una tecla para continuar...");
@@ -190,7 +187,7 @@ static void ejercicio1Menu()
         context.Users.Add(nuevoUsuario);
         context.SaveChanges();
 
-        Console.WriteLine("\n✅ Usuario agregado correctamente.");
+        Console.WriteLine("\nUsuario agregado correctamente.");
     }
 
 static void EditarUsuario(BlogContext context)
@@ -203,7 +200,7 @@ static void EditarUsuario(BlogContext context)
         var usuario = context.Users.Find(id);
         if (usuario == null)
         {
-            Console.WriteLine("❌ Usuario no encontrado.");
+            Console.WriteLine("Usuario no encontrado.");
             return;
         }
 
@@ -223,11 +220,11 @@ static void EditarUsuario(BlogContext context)
             usuario.Password = nuevoPassword;
 
         context.SaveChanges();
-        Console.WriteLine("\n✅ Usuario actualizado correctamente.");
+        Console.WriteLine("\nUsuario actualizado correctamente.");
     }
     else
     {
-        Console.WriteLine("❌ ID inválido.");
+        Console.WriteLine(" ID inválido.");
     }
 }
 
@@ -248,7 +245,6 @@ static void VerUsuarios(BlogContext context)
     }
 }
 
-    // === NUEVAS FUNCIONES ===
 
     static void CrearPost(BlogContext context)
     {
@@ -256,14 +252,14 @@ static void VerUsuarios(BlogContext context)
         Console.Write("ID del usuario autor: ");
         if (!int.TryParse(Console.ReadLine(), out int userId))
         {
-            Console.WriteLine("❌ ID inválido.");
+            Console.WriteLine(" ID inválido.");
             return;
         }
 
         var user = context.Users.Find(userId);
         if (user == null)
         {
-            Console.WriteLine("❌ Usuario no encontrado.");
+            Console.WriteLine("Usuario no encontrado.");
             return;
         }
 
@@ -277,7 +273,7 @@ static void VerUsuarios(BlogContext context)
         context.Posts.Add(post);
         context.SaveChanges();
 
-        Console.WriteLine("\n✅ Publicación creada correctamente.");
+        Console.WriteLine("\nPublicación creada correctamente.");
     }
 
     static void VerPosts(BlogContext context)
@@ -303,28 +299,28 @@ static void VerUsuarios(BlogContext context)
         Console.Write("ID del post: ");
         if (!int.TryParse(Console.ReadLine(), out int postId))
         {
-            Console.WriteLine("❌ ID inválido.");
+            Console.WriteLine("ID inválido.");
             return;
         }
 
         var post = context.Posts.Find(postId);
         if (post == null)
         {
-            Console.WriteLine("❌ Publicación no encontrada.");
+            Console.WriteLine("Publicación no encontrada.");
             return;
         }
 
         Console.Write("ID del usuario: ");
         if (!int.TryParse(Console.ReadLine(), out int userId))
         {
-            Console.WriteLine("❌ ID inválido.");
+            Console.WriteLine("ID inválido.");
             return;
         }
 
         var user = context.Users.Find(userId);
         if (user == null)
         {
-            Console.WriteLine("❌ Usuario no encontrado.");
+            Console.WriteLine("Usuario no encontrado.");
             return;
         }
 
@@ -335,7 +331,7 @@ static void VerUsuarios(BlogContext context)
         context.Comments.Add(comment);
         context.SaveChanges();
 
-        Console.WriteLine("\n✅ Comentario agregado correctamente.");
+        Console.WriteLine("\nComentario agregado correctamente.");
     }
 
     static void VerComentarios(BlogContext context)
@@ -366,7 +362,7 @@ static void VerUsuarios(BlogContext context)
 
         if (string.IsNullOrWhiteSpace(name))
         {
-            Console.WriteLine("⚠️ El nombre no puede estar vacío.");
+            Console.WriteLine("El nombre no puede estar vacío.");
             return;
         }
 
@@ -374,7 +370,7 @@ static void VerUsuarios(BlogContext context)
         context.Tags.Add(tag);
         context.SaveChanges();
 
-        Console.WriteLine("\n✅ Etiqueta agregada correctamente.");
+        Console.WriteLine("\nEtiqueta agregada correctamente.");
     }
 
     static void VerEtiquetas(BlogContext context)

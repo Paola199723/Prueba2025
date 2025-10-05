@@ -43,25 +43,25 @@ namespace BibliotecaApp.Application.Services
 
             if (libro == null)
             {
-                Console.WriteLine("❌ El libro no existe.");
+                Console.WriteLine("El libro no existe.");
                 return;
             }
 
             if (miembro == null)
             {
-                Console.WriteLine("❌ El miembro no existe.");
+                Console.WriteLine("El miembro no existe.");
                 return;
             }
 
             if (libro.Prestado)
             {
-                Console.WriteLine("⚠️ Este libro ya está prestado.");
+                Console.WriteLine("Este libro ya está prestado.");
                 return;
             }
 
             libro.Prestado = true;
             libro.IdMiembroPrestamo = idMiembro;
-            Console.WriteLine($"✅ El libro '{libro.Titulo}' ha sido prestado a {miembro.Nombre}.");
+            Console.WriteLine($" El libro '{libro.Titulo}' ha sido prestado a {miembro.Nombre}.");
         }
 
         public void DevolverLibro(int idLibro)
@@ -69,26 +69,26 @@ namespace BibliotecaApp.Application.Services
             var libro = _libros.FirstOrDefault(l => l.Id == idLibro);
             if (libro == null)
             {
-                Console.WriteLine("❌ El libro no existe.");
+                Console.WriteLine("El libro no existe.");
                 return;
             }
 
             if (!libro.Prestado)
             {
-                Console.WriteLine("⚠️ Este libro no estaba prestado.");
+                Console.WriteLine("Este libro no estaba prestado.");
                 return;
             }
 
             libro.Prestado = false;
             libro.IdMiembroPrestamo = null;
-            Console.WriteLine($"📗 El libro '{libro.Titulo}' ha sido devuelto.");
+            Console.WriteLine($"El libro '{libro.Titulo}' ha sido devuelto.");
         }
 
         public void MostrarPrestamos()
         {
             var prestados = _libros.Where(l => l.Prestado).ToList();
 
-            Console.WriteLine("\n📖 Libros actualmente prestados:");
+            Console.WriteLine("\nLibros actualmente prestados:");
             if (!prestados.Any())
             {
                 Console.WriteLine("Ninguno.");
