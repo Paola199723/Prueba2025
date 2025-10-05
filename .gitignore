@@ -1,0 +1,36 @@
+# Archivos generados automáticamente
+bin/
+obj/
+Debug/
+Release/
+out/
+
+# Archivos temporales
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Configuración local
+.vs/
+*.sqlite
+*.db
+
+# Archivos de compilación
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# Archivos del sistema
+Thumbs.db
+ehthumbs.db
+.DS_Store
+
+# Archivos de entorno o secretos
+.env
+appsettings.Development.json
+
+# Migrations (solo si no quieres incluirlas)
+Migrations/
