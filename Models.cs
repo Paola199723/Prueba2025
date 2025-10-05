@@ -10,7 +10,7 @@ public class BlogContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        // ✅ Leer la cadena desde variable de entorno (Render)
+       
         var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
 
         // Si no existe variable de entorno, usar esta cadena por defecto (externa Render)
@@ -26,7 +26,7 @@ public class BlogContext : DbContext
                 "Trust Server Certificate=true";
         }
 
-        // ✅ Conexión usando Npgsql (PostgreSQL)
+      
         options.UseNpgsql(connectionString);
     }
 

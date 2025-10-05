@@ -1,3 +1,5 @@
+
+
 # Limpiar y reconstruir
 dotnet clean
 dotnet build
@@ -12,3 +14,17 @@ dotnet ef database update
 
 # Ejecutar la app
 dotnet run
+
+# Instrucciones del Proyecto
+
+Este proyeto esta hecho para probarse por consola, porlo que se requiere que instales ods las dependencias necesarias para. que Ejecute el poyecto
+
+Pasos para Compilar
+
+1) abrir la consola y entrar a la crpeta Prueba
+2) ejecutar 
+dotnet clean
+dotnet build
+dotnet run
+3) Probar las opciones de cada ejercicio
+

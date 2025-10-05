@@ -2,7 +2,7 @@
 -- SCRIPT DE CREACIÓN DE TABLAS - BlogDemo
 -- =============================================
 
--- 1️⃣ Tabla: Users
+-- 1️ Tabla: Users
 CREATE TABLE "Users" (
     "Id" SERIAL PRIMARY KEY,
     "Username" VARCHAR(255) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE "Users" (
     "Password" VARCHAR(255) NOT NULL
 );
 
--- 2️⃣ Tabla: Posts
+-- 2️Tabla: Posts
 CREATE TABLE "Posts" (
     "Id" SERIAL PRIMARY KEY,
     "Title" VARCHAR(255) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE "Posts" (
         ON DELETE CASCADE
 );
 
--- 3️⃣ Tabla: Comments
+-- 3️Tabla: Comments
 CREATE TABLE "Comments" (
     "Id" SERIAL PRIMARY KEY,
     "Content" TEXT NOT NULL,
@@ -35,13 +35,13 @@ CREATE TABLE "Comments" (
         ON DELETE CASCADE
 );
 
--- 4️⃣ Tabla: Tags
+-- 4️Tabla: Tags
 CREATE TABLE "Tags" (
     "Id" SERIAL PRIMARY KEY,
     "Name" VARCHAR(100) NOT NULL
 );
 
--- 5️⃣ Tabla intermedia: PostTags (relación muchos a muchos)
+-- 5️Tabla intermedia: PostTags (relación muchos a muchos)
 CREATE TABLE "PostTag" (
     "PostId" INT NOT NULL,
     "TagId" INT NOT NULL,
@@ -54,12 +54,5 @@ CREATE TABLE "PostTag" (
         ON DELETE CASCADE
 );
 
--- =============================================
--- ÍNDICES RECOMENDADOS
--- =============================================
-CREATE INDEX idx_users_email ON "Users"("Email");
-CREATE INDEX idx_posts_userid ON "Posts"("UserId");
-CREATE INDEX idx_comments_postid ON "Comments"("PostId");
-CREATE INDEX idx_comments_userid ON "Comments"("UserId");
-CREATE INDEX idx_posttag_tagid ON "PostTag"("TagId");
+
 

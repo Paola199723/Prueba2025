@@ -27,7 +27,7 @@ class Program
                 case "2": ejercicio2(); break;
                 case "3": Ejercicio3(); break;
                 case "0": return;
-                default: Console.WriteLine("❌ Opción inválida."); break;
+                default: Console.WriteLine("Opción inválida."); break;
             }
 
             Console.WriteLine("\nPresiona una tecla para continuar...");
@@ -41,7 +41,7 @@ static void Ejercicio3()
 
     while (true)
     {
-        Console.WriteLine("\n===== 📘 MENÚ DE BIBLIOTECA =====");
+        Console.WriteLine("\n===== MENÚ DE BIBLIOTECA =====");
         Console.WriteLine("1. Ver libros");
         Console.WriteLine("2. Prestar libro");
         Console.WriteLine("3. Devolver libro");
@@ -73,7 +73,7 @@ static void Ejercicio3()
                 biblioteca.MostrarPrestamos();
                 break;
             case "0":
-                Console.WriteLine("👋 Saliendo...");
+                Console.WriteLine("Saliendo...");
                 return;
             default:
                 Console.WriteLine("Opción no válida. Intente de nuevo.");
@@ -173,7 +173,7 @@ static void ejercicio1Menu()
 
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
         {
-            Console.WriteLine("⚠️ Todos los campos son obligatorios.");
+            Console.WriteLine("Todos los campos son obligatorios.");
             return;
         }
 

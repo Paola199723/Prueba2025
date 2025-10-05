@@ -28,7 +28,7 @@ namespace BibliotecaApp.Application.Services
 
         public void MostrarLibros()
         {
-            Console.WriteLine("\n📚 Lista de libros disponibles:");
+            Console.WriteLine("\n Lista de libros disponibles:");
             foreach (var libro in _libros)
             {
                 string estado = libro.Prestado ? $"Prestado a {_miembros.FirstOrDefault(m => m.Id == libro.IdMiembroPrestamo)?.Nombre}" : "Disponible";
