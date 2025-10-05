@@ -17,11 +17,11 @@ dotnet run
 
 # Instrucciones del Proyecto
 
-Este proyeto esta hecho para probarse por consola, porlo que se requiere que instales ods las dependencias necesarias para. que Ejecute el poyecto
+Este proyeto esta hecho para probarse por consola, por lo que se requiere que instales todas las dependencias necesarias para que Ejecute el poyecto
 
 Pasos para Compilar
 
-1) abrir la consola y entrar a la crpeta Prueba
+1) abrir la consola y entrar a la carpeta Prueba
 2) ejecutar 
 dotnet clean
 dotnet build
