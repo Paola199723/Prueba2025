@@ -4,7 +4,8 @@ namespace BibliotecaApp.Domain.Entities
     {
         public int Id { get; set; }
         public string Titulo { get; set; } = string.Empty;
-        public string Autor { get; set; } = string.Empty;
-        public bool Disponible { get; set; } = true;
+        public string Autor { get; set; } = string.Empty; // 👈 Agregado
+        public bool Prestado { get; set; } = false;
+        public int? IdMiembroPrestamo { get; set; }
     }
 }

@@ -1,92 +1,104 @@
-using BibliotecaApp.Application.Interfaces;
 using BibliotecaApp.Domain.Entities;
-using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BibliotecaApp.Application.Services
 {
     public class BibliotecaService
     {
-        private readonly ILibroRepository _libroRepository;
-        private readonly IMiembroRepository _miembroRepository;
+        private readonly List<Libro> _libros = new();
+        private readonly List<Miembro> _miembros = new();
 
-        public BibliotecaService(ILibroRepository libroRepository, IMiembroRepository miembroRepository)
+        public BibliotecaService()
         {
-            _libroRepository = libroRepository;
-            _miembroRepository = miembroRepository;
+            // Cargamos algunos datos iniciales
+            _libros.AddRange(new[]
+            {
+                new Libro { Id = 1, Titulo = "Cien años de soledad" },
+                new Libro { Id = 2, Titulo = "El Principito" },
+                new Libro { Id = 3, Titulo = "Don Quijote de la Mancha" }
+            });
+
+            _miembros.AddRange(new[]
+            {
+                new Miembro { Id = 1, Nombre = "Ana" },
+                new Miembro { Id = 2, Nombre = "Luis" }
+            });
+        }
+
+        public void MostrarLibros()
+        {
+            Console.WriteLine("\n📚 Lista de libros disponibles:");
+            foreach (var libro in _libros)
+            {
+                string estado = libro.Prestado ? $"Prestado a {_miembros.FirstOrDefault(m => m.Id == libro.IdMiembroPrestamo)?.Nombre}" : "Disponible";
+                Console.WriteLine($"  {libro.Id}. {libro.Titulo} - {estado}");
+            }
         }
 
         public void PrestarLibro(int idLibro, int idMiembro)
         {
-            var libro = _libroRepository.ObtenerPorId(idLibro);
-            var miembro = _miembroRepository.ObtenerPorId(idMiembro);
+            var libro = _libros.FirstOrDefault(l => l.Id == idLibro);
+            var miembro = _miembros.FirstOrDefault(m => m.Id == idMiembro);
 
             if (libro == null)
             {
-                Console.WriteLine("❌ Libro no encontrado.");
+                Console.WriteLine("❌ El libro no existe.");
                 return;
             }
 
             if (miembro == null)
             {
-                Console.WriteLine("❌ Miembro no encontrado.");
+                Console.WriteLine("❌ El miembro no existe.");
                 return;
             }
 
-            if (!libro.Disponible)
+            if (libro.Prestado)
             {
-                Console.WriteLine("⚠️ El libro no está disponible.");
+                Console.WriteLine("⚠️ Este libro ya está prestado.");
                 return;
             }
 
-            libro.Disponible = false;
-            miembro.LibrosPrestados.Add(libro);
-
-            _libroRepository.Actualizar(libro);
-            _miembroRepository.Actualizar(miembro);
-
-            Console.WriteLine($"✅ {miembro.Nombre} ha tomado prestado el libro \"{libro.Titulo}\".");
+            libro.Prestado = true;
+            libro.IdMiembroPrestamo = idMiembro;
+            Console.WriteLine($"✅ El libro '{libro.Titulo}' ha sido prestado a {miembro.Nombre}.");
         }
 
-        public void DevolverLibro(int idLibro, int idMiembro)
+        public void DevolverLibro(int idLibro)
         {
-            var libro = _libroRepository.ObtenerPorId(idLibro);
-            var miembro = _miembroRepository.ObtenerPorId(idMiembro);
-
-            if (libro == null || miembro == null)
+            var libro = _libros.FirstOrDefault(l => l.Id == idLibro);
+            if (libro == null)
             {
-                Console.WriteLine("❌ Libro o miembro no encontrado.");
+                Console.WriteLine("❌ El libro no existe.");
                 return;
             }
 
-            if (miembro.LibrosPrestados.RemoveAll(l => l.Id == idLibro) > 0)
+            if (!libro.Prestado)
             {
-                libro.Disponible = true;
-                _libroRepository.Actualizar(libro);
-                Console.WriteLine($"📚 {miembro.Nombre} devolvió el libro \"{libro.Titulo}\".");
+                Console.WriteLine("⚠️ Este libro no estaba prestado.");
+                return;
             }
-            else
-            {
-                Console.WriteLine("⚠️ El miembro no tenía ese libro prestado.");
-            }
+
+            libro.Prestado = false;
+            libro.IdMiembroPrestamo = null;
+            Console.WriteLine($"📗 El libro '{libro.Titulo}' ha sido devuelto.");
         }
 
-        public void ListarLibros()
+        public void MostrarPrestamos()
         {
-            var libros = _libroRepository.ObtenerTodos();
-            Console.WriteLine("\n📖 Catálogo de libros:");
-            foreach (var libro in libros)
-            {
-                Console.WriteLine($"[{libro.Id}] {libro.Titulo} - {libro.Autor} | Disponible: {libro.Disponible}");
-            }
-        }
+            var prestados = _libros.Where(l => l.Prestado).ToList();
 
-        public void ListarMiembros()
-        {
-            var miembros = _miembroRepository.ObtenerTodos();
-            Console.WriteLine("\n👤 Lista de miembros:");
-            foreach (var miembro in miembros)
+            Console.WriteLine("\n📖 Libros actualmente prestados:");
+            if (!prestados.Any())
             {
-                Console.WriteLine($"[{miembro.Id}] {miembro.Nombre} - Libros prestados: {miembro.LibrosPrestados.Count}");
+                Console.WriteLine("Ninguno.");
+                return;
+            }
+
+            foreach (var libro in prestados)
+            {
+                var miembro = _miembros.FirstOrDefault(m => m.Id == libro.IdMiembroPrestamo);
+                Console.WriteLine($"  {libro.Titulo} → {miembro?.Nombre}");
             }
         }
     }

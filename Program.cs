@@ -1,5 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
+using BibliotecaApp.Application.Services;
+using BibliotecaApp.Infrastructure.Repositories;
+using BibliotecaApp.Domain.Entities;
+using System;
+using System.Linq;
 class Program
 {
     static void Main(string[] args)
@@ -21,7 +25,7 @@ class Program
 
                 case "1": ejercicio1Menu(); break;
                 case "2": ejercicio2(); break;
-                case "3": ejercicio2(); break;
+                case "3": Ejercicio3(); break;
                 case "0": return;
                 default: Console.WriteLine("❌ Opción inválida."); break;
             }
@@ -30,8 +34,55 @@ class Program
             Console.ReadKey();
         }
     }
-static void ejercicio2()
+
+static void Ejercicio3()
 {
+  var biblioteca = new BibliotecaService();
+
+    while (true)
+    {
+        Console.WriteLine("\n===== 📘 MENÚ DE BIBLIOTECA =====");
+        Console.WriteLine("1. Ver libros");
+        Console.WriteLine("2. Prestar libro");
+        Console.WriteLine("3. Devolver libro");
+        Console.WriteLine("4. Ver libros prestados");
+        Console.WriteLine("0. Salir");
+        Console.Write("Seleccione una opción: ");
+
+        var opcion = Console.ReadLine() ?? string.Empty;
+
+
+        switch (opcion)
+        {
+            case "1":
+                biblioteca.MostrarLibros();
+                break;
+            case "2":
+                Console.Write("Ingrese el ID del libro: ");
+                int idLibro = int.Parse(Console.ReadLine() ?? "0");
+                Console.Write("Ingrese el ID del miembro: ");
+                int idMiembro = int.Parse(Console.ReadLine() ?? "0");
+                biblioteca.PrestarLibro(idLibro, idMiembro);
+                break;
+            case "3":
+                Console.Write("Ingrese el ID del libro a devolver: ");
+                int idDev = int.Parse(Console.ReadLine() ?? "0");
+                biblioteca.DevolverLibro(idDev);
+                break;
+            case "4":
+                biblioteca.MostrarPrestamos();
+                break;
+            case "0":
+                Console.WriteLine("👋 Saliendo...");
+                return;
+            default:
+                Console.WriteLine("Opción no válida. Intente de nuevo.");
+                break;
+        }
+    }
+}    
+static void ejercicio2()
+    {
         // Ejemplo de lista y destino
 
         // pedir la lista de numeros y el destino
@@ -65,7 +116,7 @@ static void ejercicio2()
 
         Console.ReadKey();
 
-}
+    }
     // === FUNCIONES EXISTENTES ===
     // AgregarUsuario, EditarUsuario, VerUsuarios...
 // === FUNCIONES EXISTENTES ===
